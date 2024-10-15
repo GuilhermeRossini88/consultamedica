@@ -14,7 +14,7 @@ services:
       - "4040:4040"
     networks:
       - postgres-network2
-
+    #sussego
   db:
     image: postgres:latest
     container_name: postgres-agendamento
