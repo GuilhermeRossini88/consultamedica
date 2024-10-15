@@ -1,0 +1,31 @@
+services:
+  contato:
+    image: agendamento
+    build:
+      context: .
+    container_name: agendamento
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres-agendamento-db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+    ports:
+      - "4040:4040"
+    networks:
+      - postgres-network2
+
+  db:
+    image: postgres:latest
+    container_name: postgres-agendamento
+    environment:
+      - POSTGRES_DB=postgres-agendamento-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5430:5432"
+    networks:
+      - postgres-network2
+networks:
+  postgres-network2:
+    driver: bridge

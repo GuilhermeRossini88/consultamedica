@@ -1,0 +1,30 @@
+services:
+  contato:
+    image: contato
+    build:
+      context: .
+    container_name: contato
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres-contato-db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "7070:7070"
+    networks:
+      - postgres-network
+
+  db:
+    image: postgres:latest
+    container_name: postgres-contato
+    environment:
+      - POSTGRES_DB=postgres-contato-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-network
+networks:
+  postgres-network:
+    driver: bridge
